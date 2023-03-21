@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import Navbar from './components/navbar';
 import LoginPage from './components/login_page';

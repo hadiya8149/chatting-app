@@ -2,9 +2,11 @@ import React from 'react';
 export default function LoginPage(){
     return(
 
+        <>
+        <h1>Stay Connected</h1>
         <div className='main-content'>
             <div className='sides'></div>
-            <div className=' form-panel p-5 d-flex flex-column w-100 bg-light'>
+            <div className=' form-panel p-5 d-flex flex-column w-100 '>
                 <form id="login-form" method="post">
 
                 <div className="form-group row mb-12">
@@ -19,5 +21,6 @@ export default function LoginPage(){
             </div>
             <div className='sides'></div>
         </div>
+        </>
     );
 }
