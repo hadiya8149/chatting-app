@@ -27,13 +27,22 @@ body{
   width:20%;
   display: flex;
 }
-
+#root > div > div.form-panel.p-5.d-flex.flex-column.w-100{
+  align-items: center;
+}
 form{
   width:50%;
 }h1{
   text-align:center;
   font-family:cursive;
 }
+.navbar-collapse{
+  justify-content: end;
+}
+#root > div > div.signup-form{
+  display: none;
+}
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
