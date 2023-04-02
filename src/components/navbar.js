@@ -21,9 +21,9 @@ export default function Navbar(){
             <li className="nav-item">
               <a className="nav-link" href="/">Chat</a>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <a alt="link to login page" className="nav-link disabled" href="/"></a>
-            </li>
+            </li> */}
           </ul>
         </div>
       </nav>
