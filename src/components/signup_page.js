@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Tooltip as ReactTooltip } from 'react-tooltip'
 
 export default function SignupPage(props) {
     
@@ -31,7 +30,7 @@ export default function SignupPage(props) {
 
     function handleSubmit(event){
         event.preventDefault()
-        var m = event.target["target"]["id"]
+        // var m = event.target["target"]["id"]
         
         console.log(signupForm)
 
@@ -57,7 +56,7 @@ export default function SignupPage(props) {
                 <div className='sides'></div>
                 <div className=' form-panel p-5 d-flex flex-column w-100 '>
                     <form id="signup-form" onSubmit={handleSubmit} method="post">
-                        <div className="form-group row mb-12"><a href="/login_page"> Already Registered? Sign in </a></div>
+                        <div className="form-group row mb-12"><a alt="Sign in link" href="/login_page"> Already Registered? Sign in </a></div>
 
                         <div className="form-group row mb-12">
                             <input type="text" className="form-control" name="email" onChange={handleChange} value={signupForm.email}  id="email" placeholder="Email or username" /></div>

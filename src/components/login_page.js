@@ -71,7 +71,7 @@ export default function LoginPage(props) {
                             <input type="text" className="form-control" onChange={handleChange} title="invalid email" data-tip="Invalid emai" value={loginForm.email} name="email" id="email" placeholder="Email or username" /></div>
                         <div className="form-group row mb-12"><input type="password" className="form-control mt-3" onChange={handleChange} value={loginForm.password} name="password" id="password" placeholder="Password" /></div>
                         <div className="form-check mt-4 w-100"><label className="form-check-label text-dark "><input type="checkbox" name="remember" className="form-check-input" />Remember me</label></div>
-                        <div className="form-check mt-4 w-100"><a href="/signup_page" >Create an account</a></div>
+                        <div className="form-check mt-4 w-100"><a alt="create an account" href="/signup_page" >Create an account</a></div>
 
                         <div className="form-group row mb-12"><button type="Submit"  className="btn btn-primary btn-md my-3 w-100 ">Login</button></div>
 
