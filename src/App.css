@@ -18,11 +18,22 @@ body{
 .main-content{
   display:flex;
 }
-.container{
-  margin-top:10%;
-  width:60%;
+.sidebar-chat, .chat-section{
   display:inline-block;
+  height:87vh;
+
 }
+.main-content> .sidebar-chat{
+  justify-content: center;
+  align-items: flex-start;
+  width:25%;
+  background-color: #d3e2ff;
+}
+.chat-section{
+  width:50%;
+  background:aliceblue;
+}
+
 .sides{
   width:20%;
   display: flex;
@@ -32,7 +43,14 @@ body{
 }
 form{
   width:50%;
-}h1{
+}
+#messaging-form{
+  width:100%;
+}
+.message-box{
+  padding: 0px 50px 0px 50px;
+}
+h1{
   text-align:center;
   font-family:cursive;
 }
@@ -45,6 +63,40 @@ form{
 
 #tooltip{
   display:hidden;
+}
+h1{
+  display:inline-block;
+  position:absolute;
+  left:40%;
+}
+
+#logo{
+  margin-right:15px;
+  margin-left:15px;
+}
+.messages{
+  height:80%;
+  background: aliceblue;
+}
+#message-input{
+  width:80%;
+  border:2px groove rgb(139, 139, 255);
+}
+#message-input:focus-visible{
+  border:3px solid aliceblue;
+}
+.user{
+  width: 50%;
+  background: aliceblue;
+  margin:12px;
+  border-radius: 26px;
+  border: hidden;
+}
+#send-message{
+  background: aliceblue;
+}
+ul{
+  list-style-type: none;
 }
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

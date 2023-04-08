@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Tooltip as ReactTooltip } from 'react-tooltip'
+import { Tooltip as ReactTooltip } from 'react-tooltip';
+import axios from "axios"
 
 export default function LoginPage(props) {
     
@@ -22,27 +23,31 @@ export default function LoginPage(props) {
     function isValidPassword(){
         return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,10}$/.test(loginForm.password);
     }
-//     const DataInputBox =()=>{
-//         const inputRef=React.useRef(null);
-//     } 
-//     React.useEffect(() => {
-//         ReactTooltip.show(inputRef.current);
-//    }, []);
-    function handleSubmit(event){
-        event.preventDefault()
-        var m = event.target["target"]["id"]
-        switch(m){
-            case "signup-form":
-                console.log("this is signin request")
-                break;
-            case "login-form":
-                console.log("this is signup request")
-                break;
-            default:
-                console.log("blabla")
 
+    async function handleSubmit(event){
+        event.preventDefault()
+        try{
+            axios.post('http://localhost:9000/loginAPI',{
+                email:loginForm.email,
+                password:loginForm.password
+            })
+            .then(
+                (data)=>
+                new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                        if(data['data']===200)
+                        window.location.href="http://localhost:3000/"
+                    }, 1);
+                  }),
+            )
+            .catch((err) => {
+                if(err.response) console.log("this is error.response.dat",err.response.data);
+            });
         }
-        console.log(loginForm)
+        catch (e){
+            console.log(e)
+        }
+        
 
         if (!isValidEmail()){
             alert("Invalid email");
@@ -64,7 +69,7 @@ export default function LoginPage(props) {
             <div className='main-content'>
                 <div className='sides'></div>
                 <div className=' form-panel p-5 d-flex flex-column w-100 '>
-                    <form id="login-form" method="post" onSubmit={handleSubmit}>
+                    <form id="login-form" method="post" onSubmit={handleSubmit} >
 
                         <div className="form-group row mb-12">
                            <ReactTooltip id="tooltip"  effect="solid" place="right"></ReactTooltip>

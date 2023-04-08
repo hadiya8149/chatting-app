@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import axios from "axios"
 
 export default function SignupPage(props) {
     
     
     const [signupForm, setSignupForm] = useState({
+        username:"",
         email:"",
         password:"",
         password2:""
@@ -28,12 +30,8 @@ export default function SignupPage(props) {
         }
     }
 
-    function handleSubmit(event){
+    async function handleSubmit(event){
         event.preventDefault()
-        // var m = event.target["target"]["id"]
-        
-        console.log(signupForm)
-
         if (!isValidEmail()){
             alert("Invalid email");
              var x=document.getElementById("email");
@@ -46,7 +44,18 @@ export default function SignupPage(props) {
             y.style.border="2px solid red"
         }
         if (isValidEmail && isValidPassword){
-            console.log("signed in ")
+            console.log("signed in ");
+            try{
+                await axios.post("http://localhost:9000/signupAPI", {
+                    username:signupForm.username,
+                    email:signupForm.email,
+                    password:signupForm.password
+                })
+            }
+            catch (e){
+                console.log(e)
+            }
+    
         }
     }
 
@@ -57,15 +66,15 @@ export default function SignupPage(props) {
                 <div className=' form-panel p-5 d-flex flex-column w-100 '>
                     <form id="signup-form" onSubmit={handleSubmit} method="post">
                         <div className="form-group row mb-12"><a alt="Sign in link" href="/login_page"> Already Registered? Sign in </a></div>
-
                         <div className="form-group row mb-12">
-                            <input type="text" className="form-control" name="email" onChange={handleChange} value={signupForm.email}  id="email" placeholder="Email or username" /></div>
+                               <input type="text" className="form-control" name="username" onChange={handleChange} value={signupForm.username}  id="username" placeholder="username" /></div>
+                        <div className="form-group row mb-12">
+                            <input type="text" className="form-control" name="email" onChange={handleChange} value={signupForm.email}  id="email" placeholder="Email" /></div>
                         <div className="form-group row mb-12"><input type="password" onChange={handleChange} className="form-control mt-3" value={signupForm.password} name="password" id="password" placeholder="Password" /></div>
                         <div className="form-group row mb-12"><input type="password" onChange={handleChange} className="form-control mt-3" name="password2" id="password2" placeholder="Confirm Password" /></div>
 
 
                         <div className="form-group row mb-12"><button type="Submit" className="btn btn-primary btn-md my-3 w-100 ">Signup</button></div>
-                        <label>An email has been sent successfully for authorization.</label>
                     </form>
 
 
