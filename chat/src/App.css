@@ -1,0 +1,109 @@
+body{
+  background:#D6DAFD;
+  margin: 0px;
+  height:100vh;
+}
+#root > nav{
+  padding-left:10px;
+}
+.navbar{
+  background:#E2EAFF;
+  width:100%;
+  margin:0px;
+  height:100px;
+}
+#root > div > div.form-panel.p-5.d-flex.flex-column.w-100.bg-light{
+  align-items: center;
+}
+.main-content{
+  display:flex;
+}
+.sidebar-chat, .chat-section{
+  display:inline-block;
+  height:87vh;
+
+}
+.main-content> .sidebar-chat{
+  justify-content: center;
+  align-items: flex-start;
+  width:25%;
+  background-color: #d3e2ff;
+}
+.chat-section{
+  width:50%;
+  background:aliceblue;
+}
+
+.sides{
+  width:20%;
+  display: flex;
+}
+#root > div > div.form-panel.p-5.d-flex.flex-column.w-100{
+  align-items: center;
+}
+form{
+  width:50%;
+}
+#messaging-form{
+  width:100%;
+}
+.message-box{
+  padding: 0px 50px 0px 50px;
+}
+h1{
+  text-align:center;
+  font-family:cursive;
+}
+.navbar-collapse{
+  justify-content: end;
+}
+#root > div > div.signup-form{
+  display: none;
+}
+
+#tooltip{
+  display:hidden;
+}
+h1{
+  display:inline-block;
+  position:absolute;
+  left:40%;
+}
+
+#logo{
+  margin-right:15px;
+  margin-left:15px;
+}
+.messages{
+  height:80%;
+  background: aliceblue;
+}
+#message-input{
+  width:80%;
+  border:2px groove rgb(139, 139, 255);
+}
+#message-input:focus-visible{
+  border:3px solid aliceblue;
+}
+.user{
+  width: 50%;
+  background: aliceblue;
+  margin:12px;
+  border-radius: 26px;
+  border: hidden;
+}
+#send-message{
+  background: aliceblue;
+}
+ul{
+  list-style-type: none;
+}
+#messages > li{
+  font-size:24px;
+  color:green;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
