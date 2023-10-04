@@ -3,7 +3,9 @@ import logo from "../girl.png"
 import axios from "axios"
 import {io} from "socket.io-client"
 
-var socket = io("http://165.22.55.234:5000/");
+var socket = io(
+{ transports: ["websocket"] }
+);
 
 export default function Chat() {
 
@@ -46,7 +48,7 @@ export default function Chat() {
     }
     async function fetchUsers() {
         try {
-            axios.get("http://165.22.54.23/peopleAPI")
+            axios.get("http://165.22.54.234/api/peopleAPI")
                 .then((response) => setusersLists(response.data))
                 .catch((error) => {
                     console.log(error.response.data);
@@ -98,7 +100,11 @@ export default function Chat() {
                 <div className="messages">
                     <ul id="messages">
                     {messages.map((msg, index) => (
-                        <li key={index}>{msg}</li>
+                        <li key={index}>{msg}
+                        <span className="time-right">
+                            9:05
+                        </span>
+                        </li>
                     ))}
                     </ul>
                 </div>
@@ -117,7 +123,7 @@ export default function Chat() {
                 </div>
             </div>
             <div className="sidebar-chat  ">
-                <div>People</div>
+                <div>People you may know</div>
                 <ul>
                     {usersList.map((user, index) => (
                         <li key={index}><button className="user" type="submit">{user}</button></li>

@@ -9,18 +9,11 @@ const userExists = async (email) => {
   return isUser;
 }
 
-var corsOptions = {
-  origin: 'http://165.22.54.234',
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-}
 router.get('/', function (req, res, next) {
   res.send("login page api loaded")
   res.setHeader('Access-Control-Allow-Origin', '*');
 });
 router.post('/', async function (req, res, next) {
-// res.header("Access-Control-Allow-Origin", "http://165.22.54.234");
-// res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept" )  ;
-// next();
   const data = {
     email: req.body.email,
     password: req.body.password

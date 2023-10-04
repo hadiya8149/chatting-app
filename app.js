@@ -4,16 +4,23 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+
+const PORT = process.env.PORT || 9000;
+
 var indexRouter = require('./routes/index');
 var loginAPIRouter = require('./routes/loginAPI')
 var signupAPIRouter = require("./routes/signupAPI");
 var peopleAPIRouter = require("./routes/peopleAPI")
-var app = express();
-var server = require('http').createServer(app);
-const port = process.env.PORT || 9000;
-var io = require('socket.io')
 
-// const collection = require("mongoose")
+var app = express();
+const http=require('http'
+)
+const server = http.createServer(app);
+const {Server} = require("socket.io")
+const io = new Server(server, {cors:{
+  origin:"http://165.22.54.234:3000"
+}})
+
 const cors = require("cors");
 app.use(cors({
 origin:'http://165.22.54.234:3000'}))
@@ -32,7 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use("/api/loginAPI", loginAPIRouter);
 app.use("/api/signupAPI", signupAPIRouter);
-app.use("/peopleAPI", peopleAPIRouter);
+app.use("/api/peopleAPI", peopleAPIRouter);
 // catch 404 and forward to error handler
 var corsOptions = {
   origin: 'http://165.22.54.234',
@@ -54,8 +61,30 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-app.listen(port, ()=>{
-  console.log('server running on port', port)
+io.engine.on("connection_error", (err) => {
+  console.log(err.req);      // the request object
+  console.log(err.code);     // the error code, for example 1
+  console.log(err.message);  // the error message, for example "Session ID unknown"
+  console.log(err.context);  // some additional error context
+});
+io.on("connection", (socket) => {
+  const count = io.engine.clientsCount;
+
+  console.log(count);
+  io.sockets.emit("broadcast", {
+    description: count + "clients connected",
+  });
+  console.log("client connected:", socket.id);
+  socket.on("disconnect", (reason) => {
+    console.log("reason", reason);
+  });
+  socket.on("chat message", (msg) => {
+    console.log("message: " + msg);
+    io.emit("chat message", msg);
+  });
+});
+server.listen(PORT, ()=>{
+  console.log('server running on port', PORT)
 })
 
 
