@@ -27,7 +27,7 @@ export default function LoginPage(props) {
     async function handleSubmit(event){
         event.preventDefault()
         try{
-            axios.post('http://165.22.54.234/api/loginAPI',{
+            axios.post('http://localhost:9000/api/loginAPI',{
                 email:loginForm.email,
                 password:loginForm.password
             })
@@ -36,7 +36,7 @@ export default function LoginPage(props) {
                 new Promise((resolve, reject) => {
                     setTimeout(() => {
                         if(data['data']===200)
-                        window.location.href="http://165.22.54.234"
+                        window.location.href="http://localhost:3000/chat_page"
                     }, 1);
                   }),
             )

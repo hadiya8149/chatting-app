@@ -46,7 +46,7 @@ export default function SignupPage(props) {
         if (isValidEmail && isValidPassword){
            
             try{
-                await axios.post("http://165.22.54.234/api/signupAPI", {
+                await axios.post("http://localhost:9000/api/signupAPI", {
                     username:signupForm.username,
                     email:signupForm.email,
                     password:signupForm.password

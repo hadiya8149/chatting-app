@@ -3,40 +3,45 @@ import logo from "../girl.png"
 import axios from "axios"
 import {io} from "socket.io-client"
 
-var socket = io(
+var socket = io("http://localhost:9000",
 { transports: ["websocket"] }
 );
-
 export default function Chat() {
 
     const [usersList, setusersLists] = useState([])
     const [message, setMessage]=useState("")
     const [messages, setMessages]=useState([])
     const isFirstRender = useRef(true)
-    
+    const sessionID = localStorage.getItem("sessionID");
+
+
 
     useEffect(()=>{
+        if (sessionID) {
+            socket.auth = { sessionID };
+            socket.connect();
+          }
         const addMessage = (msg)=> setMessages(prevMessages=>[...prevMessages, msg])
+
         socket.on('chat message', addMessage);
          return ()=>{
             socket.off('chat message', addMessage);
         }
         
           
-        })
+        }, [sessionID])
 
     
     function handleSubmit(event){
         event.preventDefault();
-          
-        console.log("this is message in submit function", message)
-	if(socket.connected){
-        	socket.emit("chat message", message)
-}
-	else{
-		console.log("socket not connected");
-}
-        // msgRender.current = false;
+        if(socket.connected){
+                console.log("socket conected", message, socket.userID)
+                socket.emit("chat message", {message})
+    }
+        else{
+            console.log("socket not connected");
+    }
+            // msgRender.current = false;
 
             
         
@@ -44,11 +49,10 @@ export default function Chat() {
     function handleChange(event){
         event.preventDefault();
         setMessage(event.target.value);
-        console.log(message)
     }
     async function fetchUsers() {
         try {
-            axios.get("http://165.22.54.234/api/peopleAPI")
+            axios.get("http://localhost:9000/api/peopleAPI")
                 .then((response) => setusersLists(response.data))
                 .catch((error) => {
                     console.log(error.response.data);
