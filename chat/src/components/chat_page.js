@@ -1,19 +1,20 @@
 import React, { useState, useEffect, useRef } from "react";
 import logo from "../girl.png"
 import axios from "axios"
-import {io} from "socket.io-client"
 
+import {io} from "socket.io-client"
+// const token="My JWT";
+// const token=req.cookies.token
 var socket = io("http://localhost:9000",
 { transports: ["websocket"] }
 );
 export default function Chat() {
-
     const [usersList, setusersLists] = useState([])
     const [message, setMessage]=useState("")
     const [messages, setMessages]=useState([])
     const isFirstRender = useRef(true)
     const sessionID = localStorage.getItem("sessionID");
-
+    
 
 
     useEffect(()=>{
@@ -104,7 +105,7 @@ export default function Chat() {
                 <div className="messages">
                     <ul id="messages">
                     {messages.map((msg, index) => (
-                        <li key={index}>{msg}
+                        <li key={index}>{msg.message}
                         <span className="time-right">
                             9:05
                         </span>

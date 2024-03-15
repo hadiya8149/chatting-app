@@ -29,13 +29,15 @@ export default function LoginPage(props) {
         try{
             axios.post('http://localhost:9000/api/loginAPI',{
                 email:loginForm.email,
-                password:loginForm.password
+                password:loginForm.password,
+                withCredentials:'include',
             })
             .then(
                 (data)=>
                 new Promise((resolve, reject) => {
                     setTimeout(() => {
-                        if(data['data']===200)
+                        if(data)
+                        // console.log(data)
                         window.location.href="http://localhost:3000/chat_page"
                     }, 1);
                   }),
@@ -60,9 +62,10 @@ export default function LoginPage(props) {
             var y = document.getElementById("password")
             y.style.border="2px solid red"
         }
-        if (isValidEmail && isValidPassword){
-            console.log("signed in ")
-        }
+        // if (isValidEmail && isValidPassword){
+            
+
+        // }
     }
 
         return (
