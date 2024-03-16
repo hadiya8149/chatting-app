@@ -2,8 +2,9 @@ var express = require('express');
 var router = express.Router();
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
-  console.log(req.cookie)
+router.post('/', function (req, res, next) {
+  res.clearCookie("username");
+  res.clearCookie("token")
   res.send('Welcome')
 });
 

@@ -5,7 +5,9 @@ var router = express.Router();
   
 router.get('/', function(req, res, next){
     // const msg_history = msg_collection.find();
-    console.log(req.cookie)
+    const {msg, user} = req.body;
+    console.log(msg.message)
+    console.log(user)
 })
 router.post('/', async function(req, res, next){
     // msg=req.body.message,

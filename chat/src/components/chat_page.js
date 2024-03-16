@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import logo from "../girl.png"
 import axios from "axios"
+import {useCookies} from "react-cookie";
 
 import {io} from "socket.io-client"
 // const token="My JWT";
@@ -8,13 +9,21 @@ import {io} from "socket.io-client"
 var socket = io("http://localhost:9000",
 { transports: ["websocket"] }
 );
+
 export default function Chat() {
+    const [cookies, setCookie, removeCookie]=useCookies(['Username'])
+    var retrievedCookies  = cookies.Username
+    // if (retrievedCookies=== null){
+    //     console.log(retrievedCookies)
+    //     window.location.href="http://localhost:3000/login_page"
+
+    // }
     const [usersList, setusersLists] = useState([])
     const [message, setMessage]=useState("")
     const [messages, setMessages]=useState([])
     const isFirstRender = useRef(true)
     const sessionID = localStorage.getItem("sessionID");
-    
+    console.log(sessionID)
 
 
     useEffect(()=>{
@@ -32,12 +41,32 @@ export default function Chat() {
           
         }, [sessionID])
 
-    
+    function handleLogout(event){
+        event.preventDefault();
+        removeCookie(
+            "Username", {path:'/'}
+        );
+        removeCookie("TOKEN", {path:'/'})
+        console.log("hndle logout")
+        console.log("cookies", cookies.Username)
+        window.location.href="http://localhost:3000/login_page"
+
+    }
     function handleSubmit(event){
         event.preventDefault();
         if(socket.connected){
                 console.log("socket conected", message, socket.userID)
                 socket.emit("chat message", {message})
+                axios.post("http://localhost:9000/api/chat_api", {
+                    data:message,
+                    user_id:"noone"
+                })
+                .then(function (response){
+                    console.log(response);
+                })
+                .catch (function(error){
+                    console.log(error);
+                })
     }
         else{
             console.log("socket not connected");
@@ -85,22 +114,7 @@ export default function Chat() {
 
     return (
         <div className="flex main-content">
-            <div className="left-sidebar-chat sidebar-chat container ">
 
-                <div className="logo">
-                    <img id="logo" alt="female icon" src={logo}></img>
-                </div>
-                <span>My Dashboard</span>
-
-                <hr />
-                <div>
-                    <div>
-                        Messages
-                    </div>
-                    <div>
-                    </div>
-                </div>
-            </div>
             <div className=" chat-section ">
                 <div className="messages">
                     <ul id="messages">
@@ -128,6 +142,9 @@ export default function Chat() {
                 </div>
             </div>
             <div className="sidebar-chat  ">
+                <div>
+                    <button type="Submit" onClick={handleLogout}  value="logout" className="btn btn-primary">Signout</button>
+                </div>
                 <div>People you may know</div>
                 <ul>
                     {usersList.map((user, index) => (

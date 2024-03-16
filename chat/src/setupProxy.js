@@ -1,13 +1,7 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 module.exports = function(app) {
-  app.use(
-    '/peopleAPI',
-    createProxyMiddleware({
-      target: 'http://165.22.54.234:5000/',
-      changeOrigin: true,
-    })
-  );
+  
  app.use(
     '/api/loginAPI',
     createProxyMiddleware({

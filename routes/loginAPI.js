@@ -23,6 +23,8 @@ router.get('/', function (req, res, next) {
   res.send("login page api loaded")
   res.setHeader('Access-Control-Allow-Origin', '*');
 });
+
+
 router.post('/', async function (req, res, next) {
   const data = {
     email: req.body.email,
@@ -30,14 +32,15 @@ router.post('/', async function (req, res, next) {
   }
   console.log(data)
 
-  const a = await userExists(req.body.email)
+  const user = await userExists(req.body.email)
   
-  req.session.username=a.username;
 
-  console.log(a.username)
-  console.log(a.password)
+  console.log(user.username)
+  console.log(user.password)
   console.log(req.body.password)
-  if (a){
+  username=user.username
+  // req.cookie.user=username;
+  if (user){
     // const validPassword = await bcrypt.compare(req.body.password, a.password);
     bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
       if (err){
@@ -50,31 +53,42 @@ router.post('/', async function (req, res, next) {
             throw err;
           }
           if (result) {
-            const token = jwt.sign({ userId: a._id }, jwtSecret, { expiresIn: '1h' });
-            res.cookie("token", token, {
-              withCredentials: true,
-              httpOnly: false,
-            });
-            user="user"
-            res.cookie("username",a.username, {
-              withCredentials:true, 
-              httpOnly:false,
-              secure:true,
-              samesite:'lax',
-              domain:"http://localhost:3000"
-            })
+            const token = jwt.sign({ userId: user._id }, jwtSecret, { expiresIn: '1h' });
+            
+
+            // res.cookie("username",a.username, {
+            //   withCredentials:true, 
+            //   httpOnly:false,
+            //   secure:true,
+            //   samesite:'lax',
+            //   domain:"http://127.0.0.1:3000"
+            // })
+
+            // req.session.user=sessUser;
 
             jwt.verify(token, jwtSecret, function(err, decoded){
               if(err){
                 throw err;
               }
-              else{
+              console.log(typeof(token))
+                res.cookie("Username",user.username, {
+                withCredentials:true, 
+                httpOnly:true,
+                // secure:true,
+                samesite:'None',
+              })
+              res.cookie("token", token, {
+                withCredentials: true,
+                httpOnly: true,
 
-                  console.log("decoded user id",decoded.userId)
+                // secure:true,
+                samesite:'None',
+              });
+                console.log("decoded user id",decoded.userId)
 
-                  return res.json({token});
-              }
-            })
+                return res.json({token, username});
+            
+          })
           } else {
             // response is OutgoingMessage object that server response http request
            

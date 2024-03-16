@@ -4,20 +4,28 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var session=require('express-session');
-const bcrypt = require('bcrypt'); // For password hashing
-const jwt=require("jsonwebtoken");
 const PORT = process.env.PORT || 9000;
-
+const http=require('http')
 var indexRouter = require('./routes/index');
 var loginAPIRouter = require('./routes/loginAPI')
 var signupAPIRouter = require("./routes/signupAPI");
 var peopleAPIRouter = require("./routes/peopleAPI")
 var chatAPIRouter = require("./routes/chat_api");
-var app = express();
-app.use(express.json());
 
-const http=require('http'
-)
+var app = express();
+const MAX_AGE = 1000 * 60 * 60 * 3; // Three hours
+
+app.use(session({
+  secret:"SECRET_SESSION",
+  resave:true,
+  saveUninitialized :false,
+  cookie:{
+    maxAge:MAX_AGE,
+    sameSite:'None',
+  }
+}))
+
+
 const server = http.createServer(app);
 const {Server} = require("socket.io")
 const io = new Server(server, {cors:{
@@ -32,23 +40,13 @@ origin:'http://localhost:3000',
   },
 ))
 
-app.use(express.json())
-app.use(cookieParser());
-app.use(session({
-  'secret':'secret',
-  resave: false,
-  saveUninitialized: false,
-  cookie:{
-    secure:false,
-    maxAge: 1000*60*60*24
-  } //set the session cookie properties
-}))
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+app.use(express.json())
 app.use(logger('dev'));
-app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -58,11 +56,14 @@ app.use("/api/loginAPI", loginAPIRouter);
 app.use("/api/signupAPI", signupAPIRouter);
 app.use("/api/peopleAPI", peopleAPIRouter);
 app.use("/api/chat_api",chatAPIRouter);
+app.set('trust proxy', 1)
+
 // catch 404 and forward to error handler
 
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Credentials', true);
@@ -71,7 +72,6 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
   next();
 });
-// error handler
 
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
@@ -82,6 +82,8 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
 io.engine.on("connection_error", (err) => {
   console.log(err.req);      // the request object
   console.log(err.code);     // the error code, for example 1

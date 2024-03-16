@@ -1,9 +1,21 @@
 import React, { useState } from 'react';
 import { Tooltip as ReactTooltip } from 'react-tooltip';
-import axios from "axios"
+import axios from "axios";
+import {CookiesProvider, useCookies, Cookies} from "react-cookie";
 
 export default function LoginPage(props) {
     
+    const [cookies, setCookie]=useCookies(['Username'])
+    const retrievedCookies=cookies.Username
+    if (retrievedCookies!== undefined){
+        console.log(retrievedCookies)
+        window.location.href="http://localhost:3000/chat_page"
+
+    }
+    else{
+        
+    }
+
     
     const [loginForm, setLoginForm] = useState({
         email:"",
@@ -26,6 +38,7 @@ export default function LoginPage(props) {
 
     async function handleSubmit(event){
         event.preventDefault()
+
         try{
             axios.post('http://localhost:9000/api/loginAPI',{
                 email:loginForm.email,
@@ -37,8 +50,10 @@ export default function LoginPage(props) {
                 new Promise((resolve, reject) => {
                     setTimeout(() => {
                         if(data)
-                        // console.log(data)
-                        window.location.href="http://localhost:3000/chat_page"
+                        setCookie('Username', data.data.username,{path:'/'})
+                        setCookie('TOKEN', data.data.token,{path:'/'})
+                        console.log(data)
+                        // window.location.href="http://localhost:3000/chat_page"
                     }, 1);
                   }),
             )
