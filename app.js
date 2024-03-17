@@ -7,7 +7,8 @@ var session=require('express-session');
 const PORT = process.env.PORT || 9000;
 const http=require('http')
 var indexRouter = require('./routes/index');
-var loginAPIRouter = require('./routes/loginAPI')
+var loginAPIRouter = require('./routes/loginAPI');
+var logoutAPIRouter = require('./routes/logoutAPI');
 var signupAPIRouter = require("./routes/signupAPI");
 var peopleAPIRouter = require("./routes/peopleAPI")
 var chatAPIRouter = require("./routes/chat_api");
@@ -56,6 +57,7 @@ app.use("/api/loginAPI", loginAPIRouter);
 app.use("/api/signupAPI", signupAPIRouter);
 app.use("/api/peopleAPI", peopleAPIRouter);
 app.use("/api/chat_api",chatAPIRouter);
+app.use("/api/logoutAPI", logoutAPIRouter);
 app.set('trust proxy', 1)
 
 // catch 404 and forward to error handler

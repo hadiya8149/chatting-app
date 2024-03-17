@@ -15,6 +15,7 @@ function App() {
     socket.on("session", ({ sessionID, userID }) => {
         // attach the session ID to the next reconnection attempts
         socket.auth = { sessionID };
+        console.log("socket auth id")
         console.log(socket.auth)
         // store it in the localStorage
         localStorage.setItem("sessionID", sessionID);
@@ -29,8 +30,7 @@ function App() {
     <div className='h-screen flex justify-center align-center'>
   <Router>
       <Routes>
-        
-        <Route path="/login_page" element={<LoginPage />}></Route>
+        <Route path="/" index element={<LoginPage />}></Route>
         <Route path="/signup_page" element={<SignupPage />}></Route>
         <Route path="/chat_page" element={<Chat />}></Route>
       </Routes>

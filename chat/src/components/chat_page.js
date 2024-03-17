@@ -10,11 +10,11 @@ var socket = io("http://localhost:9000",
 );
 
 export default function Chat() {
-    const [cookies, removeCookie]=useCookies(['Username'])
-    var retrievedCookies  = cookies.Username
-    if (retrievedCookies=== undefined){
+    const [cookies, removeCookie]=useCookies(['Username', 'TOKEN'])
+    var retrievedCookies  = cookies.TOKEN
+    if (retrievedCookies === undefined){
         console.log(retrievedCookies)
-        window.location.href="http://localhost:3000/login_page"
+        window.location.href="http://localhost:3000"
 
     }
     const [usersList, setusersLists] = useState([])
@@ -45,12 +45,13 @@ export default function Chat() {
     function handleLogout(event){
         event.preventDefault();
         removeCookie(
-            "Username", {path:'/'}
+            "Username"
         );
-        removeCookie("TOKEN", {path:'/'})
+        removeCookie("TOKEN")
         console.log("hndle logout")
+        axios.post("http://localhost:9000/api/logoutAPI")
         console.log("cookies", cookies.Username)
-        window.location.href="http://localhost:3000/login_page"
+        window.location.href="http://localhost:3000"
 
     }
     function handleSubmit(event){
