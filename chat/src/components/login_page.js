@@ -53,7 +53,7 @@ export default function LoginPage(props) {
                         setCookie('Username', data.data.username,{path:'/'})
                         setCookie('TOKEN', data.data.token,{path:'/'})
                         console.log(data)
-                        // window.location.href="http://localhost:3000/chat_page"
+                        window.location.href="http://localhost:3000/chat_page"
                     }, 1);
                   }),
             )

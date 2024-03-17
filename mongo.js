@@ -1,17 +1,18 @@
-
 var mongoose = require("mongoose")
+const {Schema}=mongoose;
+
 require('dotenv').config()
 mongoose.connect(process.env.MONGO_URI)
     .then(() => {
-        console.log("monodb connected")
+        console.log("mongodb connected")
     })
     .catch(() => {
-        console.log('failed')
+        console.log('failed connection from mongodb')
     })
 
 
 
-const LogInSchema = new mongoose.Schema({
+const LogInSchema = new Schema({
     username: {
         type: String,
         required: true
@@ -26,6 +27,29 @@ const LogInSchema = new mongoose.Schema({
     }
 })
 
+const ConversationSchema = new Schema({
+    user_id:{
+        type: String,
+        required: true
+    },
+    message:{
+        type:String,
+        required:true,
+    },
+    username:{
+        type:String,
+        required:true
+    },
+    created_at:{
+        type:Date,
+        required:true,
+    }
+});
+const msg_collection =  mongoose.model("conversations", ConversationSchema);
 
-const collection = new mongoose.model("Collection1", LogInSchema)
-module.exports = collection
+
+const collection =  mongoose.model("Collection1", LogInSchema)
+console.log(LogInSchema._id instanceof mongoose.Types.ObjectId);
+console.log(ConversationSchema._id instanceof mongoose.Types.ObjectId)
+
+module.exports = {collection, msg_collection}

@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import logo from "../girl.png"
 import axios from "axios"
 import {useCookies} from "react-cookie";
 
@@ -11,21 +10,23 @@ var socket = io("http://localhost:9000",
 );
 
 export default function Chat() {
-    const [cookies, setCookie, removeCookie]=useCookies(['Username'])
+    const [cookies, removeCookie]=useCookies(['Username'])
     var retrievedCookies  = cookies.Username
-    // if (retrievedCookies=== null){
-    //     console.log(retrievedCookies)
-    //     window.location.href="http://localhost:3000/login_page"
+    if (retrievedCookies=== undefined){
+        console.log(retrievedCookies)
+        window.location.href="http://localhost:3000/login_page"
 
-    // }
+    }
     const [usersList, setusersLists] = useState([])
     const [message, setMessage]=useState("")
     const [messages, setMessages]=useState([])
+    const [msgHistory, setMsgHistory]=useState([]);
     const isFirstRender = useRef(true)
+    console.log(msgHistory)
     const sessionID = localStorage.getItem("sessionID");
-    console.log(sessionID)
+    // console.log(sessionID)
 
-
+        
     useEffect(()=>{
         if (sessionID) {
             socket.auth = { sessionID };
@@ -59,15 +60,17 @@ export default function Chat() {
                 socket.emit("chat message", {message})
                 axios.post("http://localhost:9000/api/chat_api", {
                     data:message,
-                    user_id:"noone"
+                    token:cookies.TOKEN,
+                    username:cookies.Username
                 })
                 .then(function (response){
-                    console.log(response);
+                    console.log("response",response);
                 })
                 .catch (function(error){
                     console.log(error);
-                })
-    }
+                });
+                
+                }
         else{
             console.log("socket not connected");
     }
@@ -95,11 +98,27 @@ export default function Chat() {
 
 
     }
+    async function fetchMessages(){
+        try{
+            axios.get("http://localhost:9000/api/chat_api")
+            .then((response)=>setMsgHistory(response.data.msg_history))
+            .catch((error)=>{
+                console.log(error);
+            })
+            .then((data)=>console.log(data))
+        }
+        catch (error){
+            console.log(error)
+        }
+        console.log(msgHistory)
+    }
+    // fetchMessages();
     useEffect(() => {
         //subscribe once
 
         if (isFirstRender.current) {
             fetchUsers();
+            fetchMessages();
             isFirstRender.current = false;
         }
         else {
@@ -107,8 +126,7 @@ export default function Chat() {
         }
 
 //unssubscribe on mount
-    }
-        , []);
+    });
     if (!usersList.length) return <h3>LOading...</h3>
 
 
@@ -117,6 +135,11 @@ export default function Chat() {
 
             <div className=" chat-section ">
                 <div className="messages">
+                    <ul id="msgs_history">
+                        {msgHistory.map((msg, index) => (
+                            <li key={index}>{msg.message}<span id={msg.user_id}>{msg.username}</span><span>{msg.created_at}</span> </li>
+                        ))}
+                    </ul>
                     <ul id="messages">
                     {messages.map((msg, index) => (
                         <li key={index}>{msg.message}

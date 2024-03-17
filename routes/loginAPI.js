@@ -2,7 +2,7 @@ var express = require("express");
 var cors = require('cors');
 var router = express.Router();
 var mongoose = require("mongoose")
-const collection = require('../mongo.js')
+const {collection} = require('../mongo.js')
 var session=require('express-session');
 var cookieParser = require('cookie-parser');
 const jwt=require("jsonwebtoken");
@@ -54,23 +54,12 @@ router.post('/', async function (req, res, next) {
           }
           if (result) {
             const token = jwt.sign({ userId: user._id }, jwtSecret, { expiresIn: '1h' });
-            
-
-            // res.cookie("username",a.username, {
-            //   withCredentials:true, 
-            //   httpOnly:false,
-            //   secure:true,
-            //   samesite:'lax',
-            //   domain:"http://127.0.0.1:3000"
-            // })
-
-            // req.session.user=sessUser;
 
             jwt.verify(token, jwtSecret, function(err, decoded){
               if(err){
                 throw err;
               }
-              console.log(typeof(token))
+              console.log(decoded)
                 res.cookie("Username",user.username, {
                 withCredentials:true, 
                 httpOnly:true,

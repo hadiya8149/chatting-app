@@ -15,7 +15,12 @@ const ConversationSchema = new mongoose.Schema({
     message:{
         type:String,
         required:true,
+    },
+    created_at:{
+        type:Date,
+        required:true,
     }
 });
 const msg_collection = new mongoose.model("Conversations", ConversationSchema);
+
 module.exports = msg_collection;
