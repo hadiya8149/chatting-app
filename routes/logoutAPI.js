@@ -5,7 +5,6 @@ var router = express.Router();
 router.post('/', function (req, res, next) {
   res.clearCookie("username");
   res.clearCookie("token");
-  console.log("res.cookies",res.cookies);
   res.redirect("http://localhost:3000")
 });
 

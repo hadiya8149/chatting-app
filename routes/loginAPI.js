@@ -26,18 +26,15 @@ router.get('/', function (req, res, next) {
 
 
 router.post('/', async function (req, res, next) {
+  const session = req.session;
   const data = {
     email: req.body.email,
     password: req.body.password
   }
-  console.log(data)
 
   const user = await userExists(req.body.email)
   
 
-  console.log(user.username)
-  console.log(user.password)
-  console.log(req.body.password)
   username=user.username
   // req.cookie.user=username;
   if (user){
@@ -59,7 +56,6 @@ router.post('/', async function (req, res, next) {
               if(err){
                 throw err;
               }
-              console.log(decoded)
                 res.cookie("Username",user.username, {
                 withCredentials:true, 
                 httpOnly:true,
@@ -73,9 +69,8 @@ router.post('/', async function (req, res, next) {
                 // secure:true,
                 samesite:'None',
               });
-                console.log("decoded user id",decoded.userId)
 
-                return res.json({token, username});
+                return res.json({token, username, session});
             
           })
           } else {

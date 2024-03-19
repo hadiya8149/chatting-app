@@ -1,46 +1,14 @@
-body{
-  background:#D6DAFD;
-  margin: 0px;
-  height:100vh;
-}
-#root > nav{
-  padding-left:10px;
-}
-.navbar{
-  background:#E2EAFF;
-  width:100%;
-  margin:0px;
-  height:100px;
-}
-#root > div > div.form-panel.p-5.d-flex.flex-column.w-100.bg-light{
+html, body,div>root{
+  height:100%;
+} 
+/* #root > div > div.form-panel.p-5.d-flex.flex-column.w-100.bg-light{
   align-items: center;
 }
-.main-content{
-  display:flex;
-}
-.sidebar-chat, .chat-section{
-  display:inline-block;
-  height:87vh;
 
-}
-.main-content> .sidebar-chat{
-  justify-content: center;
-  align-items: flex-start;
-  width:25%;
-  background-color: #d3e2ff;
-}
-.chat-section{
-  width:75%;
-  background:aliceblue;
-}
-
-.sides{
-  width:20%;
-  display: flex;
-}
 #root > div > div.form-panel.p-5.d-flex.flex-column.w-100{
   align-items: center;
-}
+} */
+
 form{
   width:50%;
 }
@@ -48,15 +16,9 @@ form{
   width:100%;
 }
 .message-box{
-  padding: 0px 50px 0px 50px;
+  width:90%
 }
-h1{
-  text-align:center;
-  font-family:cursive;
-}
-.navbar-collapse{
-  justify-content: end;
-}
+
 #root > div > div.signup-form{
   display: none;
 }
@@ -64,23 +26,34 @@ h1{
 #tooltip{
   display:hidden;
 }
-h1{
-  display:inline-block;
-  position:absolute;
-  left:40%;
-}
 
 #logo{
   margin-right:15px;
   margin-left:15px;
 }
 .messages{
-  height:80%;
-  background: aliceblue;
+  width:80%;
+  height:90vh;
+  overflow-y:scroll;
+  margin-bottom:2px;
+
+}
+.red{
+  height:30px;
+}
+.new_msg{
+  margin-bottom:2px;
+}
+#msgs_history{
+  height:85vh;
+  /* overflow-y:scroll; */
 }
 #message-input{
   width:80%;
   border:2px groove rgb(139, 139, 255);
+}
+.input-group{
+  height:45px;
 }
 #message-input:focus-visible{
   border:3px solid aliceblue;
@@ -91,9 +64,6 @@ h1{
   margin:12px;
   border-radius: 26px;
   border: hidden;
-}
-#send-message{
-  background: aliceblue;
 }
 ul{
   list-style-type: none;

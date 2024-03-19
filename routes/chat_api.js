@@ -4,15 +4,8 @@ var {msg_collection }=require("../mongo.js")
 const jwt=require("jsonwebtoken");
 var mongoose = require("mongoose")
 
-require('dotenv').config();
-const jwtSecret=process.env.JWT_SECRET;
-const saltRounds = 10;
-
-  
 router.get('/', async function(req, res, next){
-    var msgs = {}
     const msg_history = await msg_collection.find({}).exec()
-    console.log(msg_history)
     //load msg history and return it as an array with username msg and timestamp
     res.send({msg_history})
 })

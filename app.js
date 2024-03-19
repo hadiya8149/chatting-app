@@ -1,4 +1,6 @@
 var createError = require('http-errors');
+const uuid = require('uuid');
+
 var express = require('express');
 var path = require('path');
 var logger = require('morgan');
@@ -16,22 +18,18 @@ var chatAPIRouter = require("./routes/chat_api");
 var app = express();
 const MAX_AGE = 1000 * 60 * 60 * 3; // Three hours
 
-app.use(session({
+const sessionMiddleware=session({
   secret:"SECRET_SESSION",
-  resave:true,
-  saveUninitialized :false,
+  resave: true,
+  saveUninitialized: true,
   cookie:{
     maxAge:MAX_AGE,
     sameSite:'None',
   }
-}))
+})
 
+app.use(sessionMiddleware)
 
-const server = http.createServer(app);
-const {Server} = require("socket.io")
-const io = new Server(server, {cors:{
-  origin:"http://localhost:3000"
-}})
 
 const cors = require("cors");
 app.use(cors({
@@ -40,6 +38,14 @@ origin:'http://localhost:3000',
   credentials:true,
   },
 ))
+
+
+const server = http.createServer(app);
+const {Server} = require("socket.io")
+const io = new Server(server, {cors:{
+  origin:"http://localhost:3000",
+  credentials:true
+}})
 
 
 // view engine setup
@@ -85,32 +91,45 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-
 io.engine.on("connection_error", (err) => {
   console.log(err.req);      // the request object
   console.log(err.code);     // the error code, for example 1
   console.log(err.message);  // the error message, for example "Session ID unknown"
   console.log(err.context);  // some additional error context
 });
+io.engine.use(sessionMiddleware);
+
 io.on("connection", (socket) => {
+  const req = socket.request;
   const count = io.engine.clientsCount;
 
   console.log(count);
-  io.sockets.emit("broadcast", {
-    description: count + "clients connected",
-  });
+  const session = socket.request.session;
+
+  const sessionID=socket.request.session.id;
+  console.log("SESSION", sessionID)
+
   console.log("client connected:", socket.id);
+  // socket.join(req.session.id)
+  console.log(socket.rooms)
+  socket.onAny((event, ...args) => {
+    console.log(event, args);
+  });
+
+  socket.emit("session", {
+    sessionID: socket.sessionID,
+    userID: socket.userID,
+  });
   socket.on("disconnect", (reason) => {
     console.log("reason", reason);
-  });
+  })
   socket.on("chat message", (msg) => {
-    console.log("message: " + msg);
+    console.log("message: " + msg.message);
     io.emit("chat message", msg);
   });
 });
 server.listen(PORT, ()=>{
   console.log('server running on port', PORT)
 })
-
 
 module.exports = app;

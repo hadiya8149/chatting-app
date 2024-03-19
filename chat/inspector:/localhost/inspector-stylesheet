@@ -1,0 +1,5 @@
+.messages.col-9.overflow-auto {
+    overflow: auto;
+}div#root {
+    height: 100%;
+}

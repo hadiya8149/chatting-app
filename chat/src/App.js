@@ -4,30 +4,20 @@ import SignupPage from './components/signup_page';
 import LoginPage from './components/login_page';
 import Chat from "./components/chat_page";
 import {Route, Routes,BrowserRouter as  Router} from "react-router-dom"
-import {io} from "socket.io-client"
-var socket = io("http://localhost:9000",
-{ transports: ["websocket"] }
-);
+// import {io} from "socket.io-client"
+// var socket = io("http://localhost:9000",
+// { transports: ["websocket"],
+// withCredentials: true }
+// );
 
 
 function App() {
-  useEffect(()=>{
-    socket.on("session", ({ sessionID, userID }) => {
-        // attach the session ID to the next reconnection attempts
-        socket.auth = { sessionID };
-        console.log("socket auth id")
-        console.log(socket.auth)
-        // store it in the localStorage
-        localStorage.setItem("sessionID", sessionID);
-        // save the ID of the user
-        socket.userID = userID;
-      });
-  }, [])
+  
 
-
+  
   return (
     
-    <div className='h-screen flex justify-center align-center'>
+    // <div className='h-screen flex justify-center align-center'>
   <Router>
       <Routes>
         <Route path="/" index element={<LoginPage />}></Route>
@@ -36,7 +26,7 @@ function App() {
       </Routes>
 
     </Router>
-  </div>
+  // </div>
 
 
   );

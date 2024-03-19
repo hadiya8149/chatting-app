@@ -17,9 +17,7 @@ router.get("/", async function (req, res, next) {
   const all = await collection.find({}, "username");
 
   all.forEach((user) => {
-    // console.log('user', user.json, typeof user)
     userMap[user.email] = user;
-    console.log(user._doc.username);
     usernames.push(user._doc.username);
   });
   return res.json(usernames);
