@@ -4,8 +4,6 @@ import {useCookies} from "react-cookie";
 
 
 import {io} from "socket.io-client"
-// const token="My JWT";
-// const token=req.cookies.token
 var socket = io("http://localhost:9000",
 { transports: ["websocket"] ,
 withCredentials:true}
@@ -13,10 +11,12 @@ withCredentials:true}
 
 
 export default function Chat() {
-    const scrollMsgRef = useRef(null);
-
+    const AlwaysScrollToBottom = ()=>{
+        const scrollMsgRef = useRef(null);
+        useEffect(()=> scrollMsgRef.current.scrollIntoView());
+        return <div ref={scrollMsgRef}/>;
+    };
     const [cookies, removeCookie]=useCookies(['Username', 'TOKEN'])
-    // const usrname=cookies.Username
     var retrievedCookies  = cookies.TOKEN
     if (retrievedCookies === undefined){
         console.log(retrievedCookies)
@@ -40,9 +40,9 @@ export default function Chat() {
         }});
 
 
-    function handleScrollToLatestMessage(){
-        scrollMsgRef?.current?.scrollIntoView?.({block: "end", inline: "nearest"})
-    }
+    // function handleScrollToLatestMessage(){
+    //     scrollMsgRef?.current?.scrollIntoView?.(false)
+    // }
 
     function handleLogout(event){
         event.preventDefault();
@@ -80,7 +80,7 @@ export default function Chat() {
             console.log("socket not connected");
 
     }
-        handleScrollToLatestMessage();   
+        // handleScrollToLatestMessage();   
     }
     function handleChange(event){
         event.preventDefault();
@@ -137,51 +137,88 @@ export default function Chat() {
     });
     if (!usersList.length) return <h3>LOading...</h3>
     function printDate(strDate){
-        const x = new Date(strDate);
-        var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-        const y= x.getHours();
-        const z= x.getMinutes();
-        const a = x.getDay()
-        // const b = days[a]
-        // console.log(y+":"+z)
-        return (y+":"+z)
+        if (strDate){
+            const x = new Date(strDate);
+            var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+            const y= x.getHours();
+            const z= x.getMinutes();
+            const a = x.getDay()
+            // const b = days[a]
+            // console.log(y+":"+z)
+            return (y+":"+z)
+        }
+        else{
+            const newDate = new Date()
+            const hours = newDate.getHours();
+            const mins= newDate.getMinutes();
+            return (hours+":"+mins)
+
+        }
+    }
+    function checkUser(name){
+        if (name===cookies.Username){
+            return "self_user";
+
+        }
+        else{
+            return "other_user"
+        }
     }
 
+
     return (
+        <>
         <div className="row h-100" >
-                <div className="messages d-flex col-9 " >
-                    <div id="msgs_history" className=" p-2  d-inline-flex flex-column mb-3 "  >
+                <div className="messages-container d-flex flex-column overflow-auto  col-8 ">
+                    <div id="msgs_history" className=" messages p-2 flex-grow-1  mb-3 "  >
                         {msgHistory.map((msg, index) => (
                           
-                          <>
-                          <div  className="user_name" id={msg.user_id}>
+                          <React.Fragment key={msg._id}>
+                          <div  className="user_name" >
                             
                             <span className="p-2">{msg.username}</span>
                             
-                                <span className="time-right ml-3 ">{printDate(msg.created_at)}</span>
+                               
 
                                 </div>
-                            <div className="old_msg" key={index}>
+                            <div className={checkUser(msg.username)} >
+
                                     <div className="col d-inline-flex">{msg.message}</div>
 
+                                    <div className="time-right ml-3 ">{printDate(msg.created_at)}</div>
                                 </div>
-                                </>
+                                </React.Fragment>
                         ))}
+                        {messages.map((msg, index) => (
+                        <div className="new_msg" key={index}>
+                            <span className="message">
+                            {msg.message}
+                                </span>
+                        <span className="time-right">
+                           {printDate()}
+                        </span>
+                        <AlwaysScrollToBottom/>
+                        </div>
+                    ))}
+                             {/* <div className="red" id="endDiv" ref={scrollMsgRef} /> */}
+
 
                     </div>
-                    <ul id="messages" className="list-group" >
+                    {/* <div className="new-container">
+                    <div id="new_messages" className="messages d-inline-flex flex-column p-2  mb-3"  >
                     {messages.map((msg, index) => (
-                        <li className="new_msg list-group-item" key={index}>
-                            <span className="message fixed-bottom">
+                        <div className="new_msg" key={index}>
+                            <span className="message">
                             {msg.message}
                                 </span>
                         <span className="time-right">
                             9:05
                         </span>
-                        </li>
+                        </div>
                     ))}
-                    </ul>
-                    <div className="red" ref={scrollMsgRef} />
+                    </div>
+                    </div>
+                    a */}
 
                 <div className="message-box fixed-bottom m-2">
                     <form id="messaging-form" onSubmit={handleSubmit}>
@@ -194,9 +231,12 @@ export default function Chat() {
 
                     </form>
                 </div>
+
+
             </div>
 
-            <div className="sidebar-chat col-3 container  text-center">
+
+            <div className="sidebar-chat col-4 container  text-center">
                 <div>
                     <button type="Submit" onClick={handleLogout}  value="logout" className="btn btn-primary">Signout</button>
                 </div>
@@ -208,5 +248,8 @@ export default function Chat() {
                 </div>
             </div>
          </div>
+
+                         </>
+
     );
 }

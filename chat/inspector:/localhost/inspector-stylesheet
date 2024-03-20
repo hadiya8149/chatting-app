@@ -1,4 +1,6 @@
-ul#msgs_history\ inline-grid {}ul li {
+.user_name {
+    text-align: right;
+}span.time-right.ml-3 {}ul#msgs_history\ inline-grid {}ul li {
     display: inline;
 }button.list-group-item.list-group-item-action {}ul#messages {}li.new_msg {
     /* position: relative; */

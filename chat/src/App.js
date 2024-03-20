@@ -17,7 +17,6 @@ function App() {
   
   return (
     
-    // <div className='h-screen flex justify-center align-center'>
   <Router>
       <Routes>
         <Route path="/" index element={<LoginPage />}></Route>
@@ -26,7 +25,6 @@ function App() {
       </Routes>
 
     </Router>
-  // </div>
 
 
   );

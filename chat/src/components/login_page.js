@@ -7,9 +7,9 @@ export default function LoginPage(props) {
     
     const [cookies, setCookie]=useCookies(['Username'])
     const retrievedCookies=cookies.Username
-    if (!retrievedCookies){
+    if (retrievedCookies){
         console.log(retrievedCookies)
-        // window.location.href="http://localhost:3000/chat_page"
+        window.location.href="http://localhost:3000/chat_page"
 
     }
     else{

@@ -16,7 +16,7 @@ form{
   width:100%;
 }
 .message-box{
-  width:90%
+  width:80%
 }
 
 #root > div > div.signup-form{
@@ -31,7 +31,7 @@ form{
   margin-right:15px;
   margin-left:15px;
 }
-.messages{
+.messages-container{
   /* width:80%; */
   display:flex;
   height:90vh;
@@ -40,7 +40,9 @@ form{
 
 }
 .red{
-  height:30px;
+  /* background:red; */
+  /* height:50px; */
+  margin-top:12px;
 }
 .new_msg{
   margin-bottom:2px;
@@ -57,21 +59,18 @@ form{
 .input-group{
   height:45px;
 }
-.old_msg,.new_msg{
+.self_user,.new_msg{
   position: relative;
   margin-left:20px;
-  /* display:inline; */
   max-width:fit-content;
   margin-bottom:10px;
   padding:10px;
   background-color: #A8DDFD;
-  /* width: 600px; */
-  /* height:60px; */
   border:1px solid #97C6E3;
   border-radius: 10px;
   line-height:19px;
 }
-.old_msg:after, .new_msg:after{
+.self_user:after, .new_msg:after{
   content:'';
   position:absolute;
   width:0;
@@ -83,6 +82,39 @@ form{
   left:-15px;
 
 }
+.other_user{
+  position:relative;
+  margin-bottom:10px;
+  margin-left:calc(100% - 240px);
+  padding:10px;
+  background-color: #f8e896;
+  border: 1px solid  #dfd087;
+  border-radius:10px;
+}
+.other_user:after{
+  content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-bottom: 15px solid #f8e896;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    bottom: 0;
+    right: -15px;
+
+}
+.other_user:before{
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-bottom: 17px solid #dfd087;
+  border-left: 16px solid transparent;
+  border-right: 16px solid transparent;
+  bottom: -1px;
+  right: -17px;
+}
+
 /* li.old_msg:before{
   content:'';
   position:absolute;
@@ -117,7 +149,9 @@ button.list-group-item.list-group-item-action {
   border-radius: 26px;
   border: hidden;
 }
-
+.other_user>.time-right{
+  text-align:right;
+}
 .time-right{
   color: darkblue;
   font-size:12px;
