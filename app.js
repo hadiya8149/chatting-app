@@ -33,7 +33,7 @@ app.use(sessionMiddleware)
 
 const cors = require("cors");
 app.use(cors({
-origin:'http://64.226.79.131:3000',
+origin:'http://64.226.79.131:3000/',
   methods:["GET", "POST", "PUT", "DELETE"],
   credentials:true,
   },
@@ -43,7 +43,7 @@ origin:'http://64.226.79.131:3000',
 const server = http.createServer(app);
 const {Server} = require("socket.io")
 const io = new Server(server, {cors:{
-  origin:"http://64.226.79.131:3000",
+  origin:"http://64.226.79.131:3000/",
   credentials:true
 }})
 
