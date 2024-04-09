@@ -149,7 +149,7 @@ button.list-group-item.list-group-item-action {
   border-radius: 26px;
   border: hidden;
 }
-.other_user>.time-right{
+.other_user>.time-right, .other_user>.user_name{
   text-align:right;
 }
 .time-right{

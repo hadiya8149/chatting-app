@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Course Evaluation</title>
+
+  <style>
+    form {
+      /* max-width: 600px; */
+      margin: auto;
+      padding: 60px;
+      margin: 2px;
+    }
+    
+    table {
+      width: 100%;
+      text-align: center;
+      margin-top: 40px;
+    }
+    
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    
+    th {
+      background-color: #f2f2f2;
+    }
+    
+    </style>
+
+</head>
+<body>
+
+  <form id="evaluationForm" action="/submit_course_evaluation" method="POST">
+    <h1>STUDENT COURSE EVALUATION FORM</h1>
+    <label for="select_course">Select Course</label>
+  
+    <select id="select_course" name="select_course">
+        <option value="CS408">CS408</option>
+        <option value="CS619">CS619</option>
+        <option value="CS508">CS508</option>
+        <option value="CS606">CS606</option>
+        <option value="MGT610">MGT610</option>
+        <option value="MTH601">MTH601</option>
+    </select>
+    <table>
+        <tr>
+            <th>COURSE CONTENT AND ORGANIZATION</th>
+            <th>SA</th>
+            <th>AG</th>
+            <th>UC</th>
+            <th>DA</th>
+            <th>SD</th>
+        </tr>
+        <tr>
+            <td>The learning outcomes & course objectives were clear</td>
+            <td><input type="radio" name="The learning outcomes & course objectives were clear" value="SA"></td>
+            <td><input type="radio" name="The learning outcomes & course objectives were clear" value="AG"></td>
+            <td><input type="radio" name="The learning outcomes & course objectives were clear" value="UC"></td>
+            <td><input type="radio" name="The learning outcomes & course objectives were clear" value="DA"></td>
+            <td><input type="radio" name="The learning outcomes & course objectives were clear" value="SD"></td>
+        </tr>
+        <tr>
+          <td>The Course workload was manageable</td>
+          <td><input type="radio" name="The Course workload was manageable" value="SA"></td>
+          <td><input type="radio" name="The Course workload was manageable" value="AG"></td>
+          <td><input type="radio" name="The Course workload was manageable" value="UC"></td>
+          <td><input type="radio" name="The Course workload was manageable" value="DA"></td>
+          <td><input type="radio" name="The Course workload was manageable" value="SD"></td>
+      </tr>
+      <tr>
+        <td>The Course was well organized (e.g. timely access to materials, notification of changes, etc.)</td>
+        <td><input type="radio" name="The Course was well organized (e.g. timely access to materials, notification of changes, etc.)" value="SA"></td>
+        <td><input type="radio" name="The Course was well organized (e.g. timely access to materials, notification of changes, etc.)" value="AG"></td>
+        <td><input type="radio" name="The Course was well organized (e.g. timely access to materials, notification of changes, etc.)" value="UC"></td>
+        <td><input type="radio" name="The Course was well organized (e.g. timely access to materials, notification of changes, etc.)" value="DA"></td>
+        <td><input type="radio" name="The Course was well organized (e.g. timely access to materials, notification of changes, etc.)" value="SD"></td>
+    </tr>
+    </table>
+
+    <table>
+        <tr>
+            <th>STUDENT CONTRIBUTION</th>
+            <th>SA</th>
+            <th>AG</th>
+            <th>UC</th>
+            <th>DA</th>
+            <th>SD</th>
+        </tr>
+        <tr>
+            <td>You participated actively in the Course</td>
+            <td><input type="radio" name="You participated actively in the Course" value="SA"></td>
+            <td><input type="radio" name="You participated actively in the Course" value="AG"></td>
+            <td><input type="radio" name="You participated actively in the Course" value="UC"></td>
+            <td><input type="radio" name="You participated actively in the Course" value="DA"></td>
+            <td><input type="radio" name="You participated actively in the Course" value="SD"></td>
+        </tr>
+        <tr>
+          <td>You think you have made progress in this Course</td>
+          <td><input type="radio" name="You think you have made progress in this Course" value="SA"></td>
+          <td><input type="radio" name="You think you have made progress in this Course" value="AG"></td>
+          <td><input type="radio" name="You think you have made progress in this Course" value="UC"></td>
+          <td><input type="radio" name="You think you have made progress in this Course" value="DA"></td>
+          <td><input type="radio" name="You think you have made progress in this Course" value="SD"></td>
+      </tr>
+
+      <tr>  
+        <td>Approximate level of your own attendance during the whole Course</td>
+        <td><input type="radio" name="Approximate level of your own attendance during the whole Course" value="SA"><label>&lt; 25%</label></td>
+        <td><input type="radio" name="Approximate level of your own attendance during the whole Course" value="AG"><label>26% - 50%</label></td>
+        <td><input type="radio" name="Approximate level of your own attendance during the whole Course" value="UC"><label>51% - 75%</label></td>
+        <td><input type="radio" name="Approximate level of your own attendance during the whole Course" value="DA"><label>&gt;75%</label></td>
+      </tr>
+
+      
+    
+    <table>
+      <tr>
+          <th>Learning Environment and Teaching Methods</th>
+          <th>SA</th>
+          <th>AG</th>
+          <th>UC</th>
+          <th>DA</th>
+          <th>SD</th>
+      </tr>
+      <tr>
+          <td>You think the Course was well structured to achieve the learning outcomes (there was a good balance of lectures, tutorials, practical etc.)</td>
+          <td><input type="radio" name="You think the Course was well structured to achieve the learning outcomes (there was a good balance of lectures, tutorials, practical etc.)" value="SA"></td>
+          <td><input type="radio" name="You think the Course was well structured to achieve the learning outcomes (there was a good balance of lectures, tutorials, practical etc.)" value="AG"></td>
+          <td><input type="radio" name="You think the Course was well structured to achieve the learning outcomes (there was a good balance of lectures, tutorials, practical etc.)" value="UC"></td>
+          <td><input type="radio" name="You think the Course was well structured to achieve the learning outcomes (there was a good balance of lectures, tutorials, practical etc.)" value="DA"></td>
+          <td><input type="radio" name="You think the Course was well structured to achieve the learning outcomes (there was a good balance of lectures, tutorials, practical etc.)" value="SD"></td>
+      </tr>
+      <tr>
+        <td>The learning and teaching methods encouraged your participation</td>
+        <td><input type="radio" name="The learning and teaching methods encouraged your participation" value="SA"></td>
+        <td><input type="radio" name="The learning and teaching methods encouraged your participation" value="AG"></td>
+        <td><input type="radio" name="The learning and teaching methods encouraged your participation" value="UC"></td>
+        <td><input type="radio" name="The learning and teaching methods encouraged your participation" value="DA"></td>
+        <td><input type="radio" name="The learning and teaching methods encouraged your participation" value="SD"></td>
+    </tr>
+    <tr>
+      <td>The overall environment in the class was conducive to learning.</td>
+      <td><input type="radio" name="The overall environment in the class was conducive to learning." value="SA"></td>
+      <td><input type="radio" name="The overall environment in the class was conducive to learning." value="AG"></td>
+      <td><input type="radio" name="The overall environment in the class was conducive to learning." value="UC"></td>
+      <td><input type="radio" name="The overall environment in the class was conducive to learning." value="DA"></td>
+      <td><input type="radio" name="The overall environment in the class was conducive to learning." value="SD"></td>
+  </tr>
+
+  <tr>
+    <td>Classrooms were satisfactory</td>
+    <td><input type="radio" name="Classrooms were satisfactory" value="SA"></td>
+    <td><input type="radio" name="Classrooms were satisfactory" value="AG"></td>
+    <td><input type="radio" name="Classrooms were satisfactory" value="UC"></td>
+    <td><input type="radio" name="Classrooms were satisfactory" value="DA"></td>
+    <td><input type="radio" name="Classrooms were satisfactory" value="SD"></td>
+</tr>
+
+  </table>
+
+  <table>
+    <tr>
+        <th>LEARNING RESOURCES</th>
+        <th>SA</th>
+        <th>AG</th>
+        <th>UC</th>
+        <th>DA</th>
+        <th>SD</th>
+    </tr>
+    <tr>
+        <td>Learning materials (Lesson Plans, Course Notes, and Handouts etc.) were relevant and useful.</td>
+        <td><input type="radio" name="Learning materials (Lesson Plans, Course Notes, and Handouts etc.) were relevant and useful." value="SA"></td>
+        <td><input type="radio" name="Learning materials (Lesson Plans, Course Notes, and Handouts etc.) were relevant and useful." value="AG"></td>
+        <td><input type="radio" name="Learning materials (Lesson Plans, Course Notes, and Handouts etc.) were relevant and useful." value="UC"></td>
+        <td><input type="radio" name="Learning materials (Lesson Plans, Course Notes, and Handouts etc.) were relevant and useful." value="DA"></td>
+        <td><input type="radio" name="Learning materials (Lesson Plans, Course Notes, and Handouts etc.) were relevant and useful." value="SD"></td>
+    </tr>
+    <tr>
+      <td>Recommended reading Books etc. were relevant and appropriate</td>
+      <td><input type="radio" name="Recommended reading Books etc. were relevant and appropriate" value="SA"></td>
+      <td><input type="radio" name="Recommended reading Books etc. were relevant and appropriate" value="AG"></td>
+      <td><input type="radio" name="Recommended reading Books etc. were relevant and appropriate" value="UC"></td>
+      <td><input type="radio" name="Recommended reading Books etc. were relevant and appropriate" value="DA"></td>
+      <td><input type="radio" name="Recommended reading Books etc. were relevant and appropriate" value="SD"></td>
+  </tr>
+  <tr>
+    <td>The provision of learning resources in the library was adequate and appropriate</td>
+    <td><input type="radio" name="The provision of learning resources in the library was adequate and appropriate" value="SA"></td>
+    <td><input type="radio" name="The provision of learning resources in the library was adequate and appropriate" value="AG"></td>
+    <td><input type="radio" name="The provision of learning resources in the library was adequate and appropriate" value="UC"></td>
+    <td><input type="radio" name="The provision of learning resources in the library was adequate and appropriate" value="DA"></td>
+    <td><input type="radio" name="The provision of learning resources in the library was adequate and appropriate" value="SD"></td>
+</tr>
+
+<tr>
+  <td>CThe provision of online learning resources was adequate and appropriate</td>
+  <td><input type="radio" name="The provision of online learning resources was adequate and appropriate" value="SA"></td>
+  <td><input type="radio" name="The provision of online learning resources was adequate and appropriate" value="AG"></td>
+  <td><input type="radio" name="The provision of online learning resources was adequate and appropriate" value="UC"></td>
+  <td><input type="radio" name="The provision of online learning resources was adequate and appropriate" value="DA"></td>
+  <td><input type="radio" name="The provision of online learning resources was adequate and appropriate" value="SD"></td>
+</tr>
+
+</table>
+
+<table>
+  <tr>
+      <th>QUALITY OF DELIVERY</th>
+      <th>SA</th>
+      <th>AG</th>
+      <th>UC</th>
+      <th>DA</th>
+      <th>SD</th>
+  </tr>
+  <tr>
+      <td>The Course stimulated your interest and thought on the subject area.</td>
+      <td><input type="radio" name="The Course stimulated your interest and thought on the subject area." value="SA"></td>
+      <td><input type="radio" name="The Course stimulated your interest and thought on the subject area." value="AG"></td>
+      <td><input type="radio" name="The Course stimulated your interest and thought on the subject area." value="UC"></td>
+      <td><input type="radio" name="The Course stimulated your interest and thought on the subject area." value="DA"></td>
+      <td><input type="radio" name="The Course stimulated your interest and thought on the subject area." value="SD"></td>
+  </tr>
+  <tr>
+    <td>The pace of the Course was appropriate.</td>
+    <td><input type="radio" name="The pace of the Course was appropriate." value="SA"></td>
+    <td><input type="radio" name="The pace of the Course was appropriate." value="AG"></td>
+    <td><input type="radio" name="The pace of the Course was appropriate." value="UC"></td>
+    <td><input type="radio" name="The pace of the Course was appropriate." value="DA"></td>
+    <td><input type="radio" name="The pace of the Course was appropriate." value="SD"></td>
+</tr>
+<tr>
+  <td>Ideas and concepts were presented clearly</td>
+  <td><input type="radio" name="Ideas and concepts were presented clearly" value="SA"></td>
+  <td><input type="radio" name="Ideas and concepts were presented clearly" value="AG"></td>
+  <td><input type="radio" name="Ideas and concepts were presented clearly" value="UC"></td>
+  <td><input type="radio" name="Ideas and concepts were presented clearly" value="DA"></td>
+  <td><input type="radio" name="Ideas and concepts were presented clearly" value="SD"></td>
+</tr>
+
+</table>
+
+
+<table>
+  <tr>
+      <th>ASSESSMENT</th>
+      <th>SA</th>
+      <th>AG</th>
+      <th>UC</th>
+      <th>DA</th>
+      <th>SD</th>
+  </tr>
+  <tr>
+      <td>The method of assessment were reasonable.</td>
+      <td><input type="radio" name="The method of assessment were reasonable." value="SA"></td>
+      <td><input type="radio" name="The method of assessment were reasonable." value="AG"></td>
+      <td><input type="radio" name="The method of assessment were reasonable." value="UC"></td>
+      <td><input type="radio" name="The method of assessment were reasonable." value="DA"></td>
+      <td><input type="radio" name="The method of assessment were reasonable." value="SD"></td>
+  </tr>
+  <tr>
+    <td>Feedback on assessment was timely</td>
+    <td><input type="radio" name="Feedback on assessment was timely" value="SA"></td>
+    <td><input type="radio" name="Feedback on assessment was timely" value="AG"></td>
+    <td><input type="radio" name="Feedback on assessment was timely" value="UC"></td>
+    <td><input type="radio" name="Feedback on assessment was timely" value="DA"></td>
+    <td><input type="radio" name="Feedback on assessment was timely" value="SD"></td>
+</tr>
+<tr>
+  <td>Feedback on assessment was helpful</td>
+  <td><input type="radio" name="Feedback on assessment was helpful" value="SA"></td>
+  <td><input type="radio" name="Feedback on assessment was helpful" value="AG"></td>
+  <td><input type="radio" name="Feedback on assessment was helpful" value="UC"></td>
+  <td><input type="radio" name="Feedback on assessment was helpful" value="DA"></td>
+  <td><input type="radio" name="Feedback on assessment was helpful" value="SD"></td>
+</tr>
+
+</table>
+
+<label for="bestFeatures">Please specify the best features of the Course:</label><br>
+<textarea id="bestFeatures" name="bestFeatures"></textarea><br>
+
+<label for="improvements">The Course could have been improved by:</label><br>
+<textarea id="improvements" name="improvements"></textarea><br>
+
+<!--<button type='submit'>Submit</button-->
+<input type="submit" value="Submit">
+
+</form>
+  
+</body>
+
+<!--<script>
+  document.getElementById('evaluationForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    let result = '';
+    
+    // Process form data here and generate the result string
+    
+   document.getElementById('result').innerText = result; 
+  });
+  </script>-->
+
+
+</html>

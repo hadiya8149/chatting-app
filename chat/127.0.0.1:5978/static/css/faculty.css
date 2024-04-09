@@ -1,0 +1,62 @@
+/*styles.css For both index.html and results.html */
+/* body {
+    background: linear-gradient(to right,rgb(8, 78, 99), rgb(62, 157, 59));
+    font-family: Arial, sans-serif;
+} */
+
+h1 {
+    text-align: center; /* Center align headings */
+    font-size: 64px; /* Adjust the size as needed */
+}
+
+h2 {
+    text-align: center; /* Center align headings */
+    font-size: 30px; /* Adjust the size as needed */
+}
+
+form {
+    text-align: center; /* Center align form */
+}
+
+input[type="file"],
+input[type="submit"] {
+    padding: 10px 20px; /* Increase button padding */
+    font-size: 20px; /* Increase button font size */
+    /* background-color: rgb(21, 87, 201); *//* Green button color */
+    color: black; /* Button text color */
+    border: none; /* Remove button border */
+    border-radius: 5px; /* Round button corners */
+    cursor: pointer; /* Add pointer cursor on hover */
+    margin-top: 20px; /* Add top margin to buttons */
+}
+
+
+
+input[type="file"] {
+    margin-right: 20px; /* Add right margin to file input */
+}
+
+/* For results.html */
+img {
+    border: 1px solid #ccc; /* Add border around images */
+    border-radius: 5px; /* Round image corners */
+}
+
+table {
+    border-collapse: collapse; /* Collapse table borders */
+    width: 100%; /* Make table width 100% */
+}
+
+th, td {
+    padding: 8px; /* Add padding to table cells */
+    text-align: left; /* Align text to left in table cells */
+    border-bottom: 1px solid #ddd; /* Add bottom border to table rows */
+    font-size: 20px; /* Increase font size of text in table cells */
+}
+
+th {
+    background-color: #8fadcb; /* Light grey background color for table header */
+}
+
+
+/* Add additional styling as needed */
