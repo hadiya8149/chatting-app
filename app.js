@@ -33,7 +33,7 @@ app.use(sessionMiddleware)
 
 const cors = require("cors");
 app.use(cors({
-origin:'http://localhost:3000',
+origin:'http://64.226.79.131:3000',
   methods:["GET", "POST", "PUT", "DELETE"],
   credentials:true,
   },
@@ -43,7 +43,7 @@ origin:'http://localhost:3000',
 const server = http.createServer(app);
 const {Server} = require("socket.io")
 const io = new Server(server, {cors:{
-  origin:"http://localhost:3000",
+  origin:"http://64.226.79.131:3000",
   credentials:true
 }})
 
@@ -75,7 +75,7 @@ app.use(function(req, res, next) {
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Credentials', true);
-  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.header('Access-Control-Allow-Origin', 'http://64.226.79.131:3000');
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,UPDATE,OPTIONS');
   res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
   next();

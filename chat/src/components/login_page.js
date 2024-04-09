@@ -9,7 +9,7 @@ export default function LoginPage(props) {
     const retrievedCookies=cookies.Username
     if (retrievedCookies){
         console.log(retrievedCookies)
-        window.location.href="http://localhost:3000/chat_page"
+        window.location.href="http://64.226.79.131:3000/chat_page"
 
     }
     else{
@@ -40,7 +40,7 @@ export default function LoginPage(props) {
         event.preventDefault()
 
         try{
-            axios.post('http://localhost:9000/api/loginAPI',{
+            axios.post('http://64.226.79.131:9000/api/loginAPI',{
                 email:loginForm.email,
                 password:loginForm.password,
                 withCredentials:'include',
@@ -53,7 +53,7 @@ export default function LoginPage(props) {
                         setCookie('Username', data.data.username,{path:'/'})
                         setCookie('TOKEN', data.data.token,{path:'/'})
                         console.log(data)
-                        window.location.href="http://localhost:3000/chat_page"
+                        window.location.href="http://64.226.79.131:3000/chat_page"
                     }, 1);
                   }),
             )

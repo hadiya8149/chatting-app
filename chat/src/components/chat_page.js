@@ -4,7 +4,7 @@ import {useCookies} from "react-cookie";
 
 
 import {io} from "socket.io-client"
-var socket = io("http://localhost:9000",
+var socket = io("http://64.226.79.131:9000",
 { transports: ["websocket"] ,
 withCredentials:true}
 );
@@ -20,7 +20,7 @@ export default function Chat() {
     var retrievedCookies  = cookies.TOKEN
     if (retrievedCookies === undefined){
         console.log(retrievedCookies)
-        window.location.href="http://localhost:3000"
+        window.location.href="http://64.226.79.131:3000"
 
     }
     const [usersList, setusersLists] = useState([])
@@ -51,9 +51,9 @@ export default function Chat() {
         );
         removeCookie("TOKEN")
         console.log("hndle logout")
-        axios.post("http://localhost:9000/api/logoutAPI")
+        axios.post("http://64.226.79.131:9000/api/logoutAPI")
         console.log("cookies", cookies.Username)
-        window.location.href="http://localhost:3000"
+        window.location.href="http://64.226.79.131:3000"
 
     }
 
@@ -63,7 +63,7 @@ export default function Chat() {
         if(socket.connected){
                 console.log("socket conected", message, socket.userID)
                 socket.emit("chat message", {message})
-                axios.post("http://localhost:9000/api/chat_api", {
+                axios.post("http://64.226.79.131:9000/api/chat_api", {
                     data:message,
                     token:cookies.TOKEN,
                     username:cookies.Username
@@ -90,7 +90,7 @@ export default function Chat() {
     }
     async function fetchUsers() {
         try {
-            axios.get("http://localhost:9000/api/peopleAPI")
+            axios.get("http://64.226.79.131:9000/api/peopleAPI")
                 .then((response) => setusersLists(response.data))
                 .catch((error) => {
                     console.log(error.response.data);
@@ -105,7 +105,7 @@ export default function Chat() {
     }
     async function fetchMessages(){
         try{
-            axios.get("http://localhost:9000/api/chat_api")
+            axios.get("http://64.226.79.131:9000/api/chat_api")
             .then((response)=>
             setMsgHistory(response.data.msg_history)
             // console.log(response.data.msg_history)
