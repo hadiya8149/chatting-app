@@ -6,14 +6,15 @@ import {CookiesProvider, useCookies, Cookies} from "react-cookie";
 export default function LoginPage(props) {
     
     const [cookies, setCookie]=useCookies(['Username'])
-    const retrievedCookies=cookies.Username
-    if (retrievedCookies){
-        console.log(retrievedCookies)
-        window.location.href="http://64.226.79.131:3000/chat_page"
+	console.log(cookies);
+    const retrievedCookies=cookies.Username;
+	console.log(retrievedCookies)
+    if(retrievedCookies ===undefined){
+        console.log(retrievedCookies);
 
     }
     else{
-        
+     	window.location.href="http://64.226.79.131:3000/chat_page";
     }
 
     
@@ -40,7 +41,7 @@ export default function LoginPage(props) {
         event.preventDefault()
 
         try{
-            axios.post('http://64.226.79.131:9000/api/loginAPI',{
+            axios.post('/api/loginAPI',{
                 email:loginForm.email,
                 password:loginForm.password,
                 withCredentials:'include',
